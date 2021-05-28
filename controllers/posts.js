@@ -1,6 +1,6 @@
 const cloudinary = require("../middleware/cloudinary");
 const Post = require("../models/Post");
-const connectDB = require("../config/databaseSQL");
+const connectDBSQL = require("../config/databaseSQL");
 require('dotenv').config({path: './config/.env'})
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
     try {
         const posts = await Post.find({ user: req.user.id });
         // res.render("profile.ejs", { posts: posts, user: req.user });
-        const conn = await connectDB();
+        const conn = await connectDBSQL();
         const result = await conn.execute
         (`SELECT * FROM ${process.env.SCORE_TABLE}`)
         console.log("Reading data from ")
@@ -69,14 +69,35 @@ module.exports = {
 
   tickerRequest: async (req, res) => {
     try {
-      console.log("Drinnen!")
-      console.log(req)
-
       // write requested ticker in db for batch-work
-      const conn = await connectDB();
+      const actDate = new Date().toISOString().split('T')[0]
+      const conn = await connectDBSQL();
+
+      // conn.query(`SELECT * FROM workingqueue WHERE ticker = ${req.body.tickerReq}`, function (err, result1) {
+      //   if (err) throw err;
+      //   console.log(`DEBUG: ${result1}`)
+      // });
+
+      // let sql1 = `SELECT ticker FROM workingqueue WHERE ticker = ${req.body.tickerReq}`
+      // let result = conn.query(sql1)
+      // console.log(`DEBUG: ${result}`)                
+      
       const result = await conn.execute
-      (`SELECT * FROM ${process.env.SCORE_TABLE}`)
-      console.log("Writing data do db...")
+      (`SELECT ticker FROM workingqueue WHERE ticker = ${req.body.tickerReq}`)      
+      console.log(`DEBUG: ${result[0]}`)                      
+
+      // let sql = `SELECT * FROM workingqueue`;
+      // const erg = conn.query(sql, (error, results, fields) => {
+      //   if (error) {
+      //     return console.error(error.message);
+      //   }
+      //   console.log(`DEBUG: ${result}`)                
+      // });
+
+      let sql2 = `INSERT INTO workingqueue (ticker,requestDate) VALUES (${JSON.stringify(req.body.tickerReq)}, ${JSON.stringify(actDate)})`
+      conn.query(sql2)
+      conn.end()
+      console.log(`Writing ${req.body.tickerReq} to batch working-queue...`)
     } catch (err) {
       console.log("An Error...")
       console.log(err);

@@ -1,7 +1,7 @@
 const mysql = require('mysql2/promise');
 require('dotenv').config({path: './config/.env'})
 
-const connectDB = async () => {
+const connectDBSQL = async () => {
   try {
     const conn = await mysql.createConnection({
       host: 'nl1-ss18.a2hosting.com',
@@ -28,4 +28,4 @@ const connectDB = async () => {
 //   console.log('Error connecting to Db')  
 // }
 
-module.exports = connectDB
+module.exports = connectDBSQL

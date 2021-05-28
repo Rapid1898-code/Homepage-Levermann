@@ -26,7 +26,7 @@
                 <p><strong>Email</strong>: <%= user.email %></p>
               </div> 
               <div class="p-2">
-                <form class="row row-cols-lg-auto g-3 align-items-center"action="/tickerRequest" method="POST">               
+                <form class="row row-cols-lg-auto g-3 align-items-center" action="/post/tickerRequest" method="POST">               
                   <div class="col12">
                     <label
                       for="tickerRequestField" class="form-label"><strong>Request Ticker for update</strong>:             
@@ -34,6 +34,7 @@
                   </div>                    
                   <div class="col12">                                                  
                     <input
+                      type="text"
                       class="form-control"
                       id="tickerRequestField"
                       aria-describedby="tickerRequest"
