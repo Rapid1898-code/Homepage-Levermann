@@ -1,0 +1,25 @@
+body {
+  min-height: 100vh;  
+  background-color: #90e0ef;
+  background-image: linear-gradient(147deg, #90e0ef 0%, #023e8a 100%);
+  /* border: 2px solid red; */
+}
+
+div.container {
+  max-width: 100%;
+  /* border: 2px solid green; */
+  padding: 0;
+  margin: 0;
+}
+
+div.py-5, div.py-5 {
+padding: 0!important;
+}
+
+div.mx-auto {
+max-width: 100%;
+}
+
+div.col-lg-10 {
+flex: 0 0 92%;
+}
