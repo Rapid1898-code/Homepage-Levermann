@@ -72,7 +72,8 @@ module.exports = {
       // write requested ticker in db for batch-work      
       const conn = await connectDBSQL();                      
 
-      const result = await conn.query(`SELECT ticker FROM workingqueue WHERE ticker = ?`,
+      const result = await conn.query(
+        `SELECT ticker FROM workingqueue WHERE ticker = ?`,
         [req.body.tickerReq],
         (err, res) => {if(err) throw err}
       );     
@@ -81,7 +82,8 @@ module.exports = {
         const actDate = new Date().toISOString().split('T')[0]      
         const tmpTicker = req.body.tickerReq    
         const data = {ticker: tmpTicker, requestDate: actDate}
-        conn.query('INSERT INTO workingqueue SET ?',
+        conn.query(
+          'INSERT INTO workingqueue SET ?',
           data,
           (err, res) => {if(err) throw err}
         );
@@ -109,6 +111,7 @@ module.exports = {
       console.log(err);
     }
   },
+
   deletePost: async (req, res) => {
     try {
       // Find post by id
