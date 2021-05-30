@@ -69,39 +69,26 @@ module.exports = {
 
   tickerRequest: async (req, res) => {
     try {
-      // write requested ticker in db for batch-work
-      const actDate = new Date().toISOString().split('T')[0]
-      const conn = await connectDBSQL();
-      let tickerValid = false
-      const result = await conn.query(
-        `SELECT ticker FROM workingqueue WHERE ticker = ?`,
+      // write requested ticker in db for batch-work      
+      const conn = await connectDBSQL();                      
+
+      const result = await conn.query(`SELECT ticker FROM workingqueue WHERE ticker = ?`,
         [req.body.tickerReq],
-        (err,rows) => {
-            if(err) throw err;  
-            console.log(rows.length)
-            if (rows.length > 0) {
-              console.log(rows[0].ticker)
-              console.log(typeof(rows[0].ticker))
-              tickerValid = true
-            }
-        });              
+        (err, res) => {if(err) throw err}
+      );     
       
-      // const result = await conn.execute
-      // (`SELECT ticker FROM workingqueue WHERE ticker = ${req.body.tickerReq}`)      
-      // console.log(`DEBUG: ${result[0]}`)                      
-
-      // let sql = `SELECT * FROM workingqueue`;
-      // const erg = conn.query(sql, (error, results, fields) => {
-      //   if (error) {
-      //     return console.error(error.message);
-      //   }
-      //   console.log(`DEBUG: ${result}`)                
-      // });
-
-      let sql2 = `INSERT INTO workingqueue (ticker,requestDate) VALUES (${JSON.stringify(req.body.tickerReq)}, ${JSON.stringify(actDate)})`
-      conn.query(sql2)
-      conn.end()
-      console.log(`Writing ${req.body.tickerReq} to batch working-queue...`)
+      if (result[0].length === 0) {
+        const actDate = new Date().toISOString().split('T')[0]      
+        const tmpTicker = req.body.tickerReq    
+        const data = {ticker: tmpTicker, requestDate: actDate}
+        conn.query('INSERT INTO workingqueue SET ?',
+          data,
+          (err, res) => {if(err) throw err}
+        );
+        console.log(`Inserted ticker ${tmpTicker} with actual date in working queue...`)
+      } else {
+        console.log(`${req.body.tickerReq} allready in working queue...`)
+      }    
     } catch (err) {
       console.log("An Error...")
       console.log(err);
