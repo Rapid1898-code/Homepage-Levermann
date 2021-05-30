@@ -72,19 +72,23 @@ module.exports = {
       // write requested ticker in db for batch-work
       const actDate = new Date().toISOString().split('T')[0]
       const conn = await connectDBSQL();
-
-      // conn.query(`SELECT * FROM workingqueue WHERE ticker = ${req.body.tickerReq}`, function (err, result1) {
-      //   if (err) throw err;
-      //   console.log(`DEBUG: ${result1}`)
-      // });
-
-      // let sql1 = `SELECT ticker FROM workingqueue WHERE ticker = ${req.body.tickerReq}`
-      // let result = conn.query(sql1)
-      // console.log(`DEBUG: ${result}`)                
+      let tickerValid = false
+      const result = await conn.query(
+        `SELECT ticker FROM workingqueue WHERE ticker = ?`,
+        [req.body.tickerReq],
+        (err,rows) => {
+            if(err) throw err;  
+            console.log(rows.length)
+            if (rows.length > 0) {
+              console.log(rows[0].ticker)
+              console.log(typeof(rows[0].ticker))
+              tickerValid = true
+            }
+        });              
       
-      const result = await conn.execute
-      (`SELECT ticker FROM workingqueue WHERE ticker = ${req.body.tickerReq}`)      
-      console.log(`DEBUG: ${result[0]}`)                      
+      // const result = await conn.execute
+      // (`SELECT ticker FROM workingqueue WHERE ticker = ${req.body.tickerReq}`)      
+      // console.log(`DEBUG: ${result[0]}`)                      
 
       // let sql = `SELECT * FROM workingqueue`;
       // const erg = conn.query(sql, (error, results, fields) => {
