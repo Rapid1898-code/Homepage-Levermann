@@ -38,10 +38,20 @@ module.exports = {
     }
   },
 
-  getPost: async (req, res) => {
+  detailScore: async (req, res) => {
     try {
-      const post = await Post.findById(req.params.id);
-      res.render("post.ejs", { post: post, user: req.user });
+      // console.log(req.params.id)
+      const conn = await connectDBSQL(); 
+
+      const result = await conn.query(
+        `SELECT * FROM ${process.env.SCORE_TABLE} WHERE ticker = ?
+          AND calcDate = (SELECT max(calcDate)
+          from ${process.env.SCORE_TABLE} WHERE ticker = ?)`,
+        [req.params.id,req.params.id]
+      );   
+      console.log(`Read detail score data for ${req.params.id}...`)
+      console.log(result[0][0])
+      res.render("detailScores.ejs", { details: result[0][0], user: req.user });
     } catch (err) {
       console.log(err);
     }
@@ -74,8 +84,7 @@ module.exports = {
 
       const result = await conn.query(
         `SELECT ticker FROM workingqueue WHERE ticker = ?`,
-        [req.body.tickerReq],
-        (err, res) => {if(err) throw err}
+        [req.body.tickerReq]
       );     
       
       if (result[0].length === 0) {
@@ -84,8 +93,7 @@ module.exports = {
         const data = {ticker: tmpTicker, requestDate: actDate}
         conn.query(
           'INSERT INTO workingqueue SET ?',
-          data,
-          (err, res) => {if(err) throw err}
+          data
         );
         console.log(`Inserted ticker ${tmpTicker} with actual date in working queue...`)
       } else {

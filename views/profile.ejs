@@ -41,7 +41,7 @@
                       name="tickerReq"
                     />                
                   </div>
-                  <button type="submit" class="btn btn-primary">
+                  <button type="submit" id="tickerRequestButton" class="btn btn-primary">
                     Submit
                   </button>                         
                 </form>                           
@@ -78,7 +78,9 @@
                           <tbody>   
                               <% rows.forEach( el => { %>
                                   <tr class='TickerRow' data-id='<%= `${el.ticker} ${el.calcDate}` %>'>
-                                      <td><%= el.ticker %></td>
+                                      <td>
+                                        <a href="/post/<%= el.ticker %>"><%= el.ticker %></a>
+                                      </td>
                                       <td><%= el.stockName %></td>
                                       <td><%= el.calcDate %></td>
                                       <td><%= el.indexName %></td>
@@ -108,6 +110,11 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>   
     <script type="text/javascript" src="/js/mainServerLevermann.js"></script>
+    <!-- <script>
+        $("#tickerRequestButton").click(function () {
+          $('#tickerRequestField').val('')
+        });
+    </script> -->
   </body>
 </html>  
 

@@ -1,0 +1,197 @@
+<%- include('partials/header') -%>
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col"><%= details.stockName %></th>
+        <th scope="col">Calculation Date</th>
+        <th scope="col"><%= details.calcDate .toISOString().split('T')[0] %></th>
+      </tr>
+      <tr>
+        <th scope="col">Ticker</th>
+        <th scope="col"><%= details.ticker %></th>
+        <th scope="col">Currency</th>
+        <th scope="col"><%= details.currency %></th>
+      </tr>
+      <tr>
+        <th scope="col">Index</th>
+        <th scope="col"><%= details.indexName %></th>
+        <th scope="col">Sector</th>
+        <th scope="col"><%= details.sector %></th>
+      </tr>
+      <tr>
+        <th scope="col">MCap</th>
+        <th scope="col"><%= details.marketCap %></th>
+        <th scope="col">Industry</th>
+        <th scope="col"><%= details.industry %></th>
+      </tr>
+      <tr>
+        <th scope="col">Finance?</th>
+        <th scope="col"><%= details.financeStock %></th>
+        <th scope="col">Cap</th>
+        <th scope="col"><%= details.cap %></th>
+      </tr>
+      <tr>
+        <th scope="col">Score</th>
+        <th scope="col"><%= details.scoreFull %></th>
+        <th scope="col">Recommendation</th>
+        <th scope="col"><%= details.recommendFull %></th>
+      </tr>
+    </thead>
+  </table>
+  
+  
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Kennzahl</th>
+        <th scope="col">Measure</th>
+        <th scope="col">To</th>
+        <th scope="col">From</th>
+        <th scope="col">Result</th>
+        <th scope="col">Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Eigenkapitalrendite RoE</td>
+        <td>Return on Equity RoE</td>
+        <td>&gt;20</td>
+        <td>&lt;10</td>
+        <td><%= details['1roeValue'] %></td>
+        <td><%= details["1roe"] %></td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>EBIT-Marge</td>
+        <td>EBIT-Margin</td>
+        <td>&gt;12</td>
+        <td>&lt;6</td>
+        <td><%= details['2ebitMargeValue'] %></td>
+        <td><%= details["2ebitMarge"] %></td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Eigenkapitalquote</td>
+        <td>Equity Ratio</td>
+        <td>&gt;25</td>
+        <td>&lt;15</td>
+        <td><%= details['3eqRatioValue'] %></td>
+        <td><%= details["3eqRatio"] %></td>
+      <tr>
+        <th scope="row">4</th>
+        <td>KGV 5 Jahre Mittel</td>
+        <td>P/E-Ratio 5 Year History</td>
+        <td>&lt;12</td>
+        <td>&gt;16</td>
+        <td><%= details['4peRatioHistValue'] %></td>
+        <td><%= details["4peRatio"] %></td>
+      </tr>
+      <tr>
+        <th scope="row">5</th>
+        <td>KGV Aktuell</td>
+        <td>P/E-Ratio Actual</td>
+        <td>&lt;12</td>
+        <td>&gt;16</td>
+        <td><%= details['5peRatioValue'] %></td>
+        <td><%= details["5peRatioHist"] %></td>
+      </tr>
+      <tr>
+        <th scope="row">6</th>
+        <td>Analystenmeinung</td>
+        <td>Analyst Opinions</td>
+        <td>&lt;2</td>
+        <td>&gt;4</td>
+        <td><%= details['6ratingValue'] %></td>
+        <td><%= details["6rating"] %></td>
+      </tr>
+      <tr>
+        <th scope="row">7</th>
+        <td>Reaktion auf Quartalszahlen</td>
+        <td>Reaction to quarter numbers</td>
+        <td>&gt;1</td>
+        <td>&lt;-1</td>
+        <td><%= details['7quartalReactionValue'] %></td>
+        <td><%= details["7reaction"] %></td>
+      </tr>
+      <tr>
+        <th scope="row">8</th>
+        <td>Gewinnrevision</td>
+        <td>Profit Revision</td>
+        <td>&gt;5</td>
+        <td>&lt;5</td>
+        <td><%= details['8profitRevisionValue'] %></td>
+        <td><%= details["8profitRevision"] %></td>
+      </tr>
+      <tr>
+        <th scope="row">9</th>
+        <td>Kurs Heute vs. Kurs 6M</td>
+        <td>Price Change for 6 month</td>
+        <td>&gt;5</td>
+        <td>&lt;5</td>
+        <td><%= details['9priceToday6MValue'] %></td>
+        <td><%= details["9changePrice6M"] %></td>
+      </tr>
+      <tr>
+        <th scope="row">10</th>
+        <td>Kurs Heute vs. Kurs 1J</td>
+        <td>Price Change for 12 month</td>
+        <td>&gt;5</td>
+        <td>&lt;5</td>
+        <td><%= details['10priceToday1YValue'] %></td>
+        <td><%= details["10changePrice1Y"] %></td>
+      </tr>
+      <tr>
+        <th scope="row">11</th>
+        <td>Kursmomentum Steigend</td>
+        <td>Price Momentum</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td><%= details["11priceMomentum"] %></td>
+      </tr>
+      <tr>
+        <th scope="row">12</th>
+        <td>Dreimonatsreversal</td>
+        <td>3 Month Reversal Effect</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td><%= details["12monthReversal"] %></td>
+      </tr>
+      <tr>
+        <th scope="row">13</th>
+        <td>Gewinnwachstum</td>
+        <td>Profit Growth</td>
+        <td>&gt;5</td>
+        <td>&lt;5</td>
+        <td><%= details['13profitGrowthValue'] %></td>
+        <td><%= details["13profitGrowth"] %></td>
+      </tr>
+      <tr>
+        <th scope="row"></th>
+        <td>Recommendation Full-Score</td>
+        <td><%= details.recommendFull %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><%= details.scoreFull %></td>
+      </tr>
+      <tr>
+        <th scope="row"></th>
+        <td>Recommendation Light-Score</td>
+        <td><%= details.recommendLight %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><%= details.scoreLight %></td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+<%- include('partials/footer') -%>
