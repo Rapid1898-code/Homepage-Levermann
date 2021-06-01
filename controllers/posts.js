@@ -7,7 +7,6 @@ module.exports = {
   getProfile: async (req, res) => {
     try {
         const posts = await Post.find({ user: req.user.id });
-        // res.render("profile.ejs", { posts: posts, user: req.user });
         const conn = await connectDBSQL();
         const result = await conn.execute
         (`SELECT * FROM ${process.env.SCORE_TABLE}`)
@@ -23,7 +22,7 @@ module.exports = {
             // console.log(`${typeof row.ticker} ${typeof row.calcDate}`)
             // console.log(`${row.calcDate.toISOString().split('T')[0]}`)
         });
-        res.render('profile.ejs', { rows: result[0], user: req.user })       
+        res.render('scores.ejs', { rows: result[0], user: req.user })       
     } catch (err) {
         console.log(err);
     }

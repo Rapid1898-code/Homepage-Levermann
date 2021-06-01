@@ -1,49 +1,52 @@
-<%- include('partials/header') -%>
+<%- include('partials/headerDetailScores.ejs') -%>
 <div class="container">
-  <table class="table">
+  <table class="table table-sm table-bordered table-warning">
     <thead>
       <tr>
-        <th scope="col">Name</th>
+        <th scope="col">Name:</th>
         <th scope="col"><%= details.stockName %></th>
-        <th scope="col">Calculation Date</th>
+        <th scope="col">Calculation Date:</th>
         <th scope="col"><%= details.calcDate .toISOString().split('T')[0] %></th>
       </tr>
       <tr>
-        <th scope="col">Ticker</th>
+        <th scope="col">Ticker:</th>
         <th scope="col"><%= details.ticker %></th>
-        <th scope="col">Currency</th>
+        <th scope="col">Currency:</th>
         <th scope="col"><%= details.currency %></th>
       </tr>
       <tr>
-        <th scope="col">Index</th>
+        <th scope="col">Index:</th>
         <th scope="col"><%= details.indexName %></th>
-        <th scope="col">Sector</th>
+        <th scope="col">Sector:</th>
         <th scope="col"><%= details.sector %></th>
       </tr>
       <tr>
-        <th scope="col">MCap</th>
+        <th scope="col">Market Cap:</th>
         <th scope="col"><%= details.marketCap %></th>
-        <th scope="col">Industry</th>
+        <th scope="col">Industry:</th>
         <th scope="col"><%= details.industry %></th>
       </tr>
       <tr>
-        <th scope="col">Finance?</th>
+        <th scope="col">Finance Stock?</th>
         <th scope="col"><%= details.financeStock %></th>
-        <th scope="col">Cap</th>
+        <th scope="col">Cap Size:</th>
         <th scope="col"><%= details.cap %></th>
-      </tr>
-      <tr>
-        <th scope="col">Score</th>
-        <th scope="col"><%= details.scoreFull %></th>
-        <th scope="col">Recommendation</th>
-        <th scope="col"><%= details.recommendFull %></th>
       </tr>
     </thead>
   </table>
   
-  
-  
-  <table class="table">
+  <table class="table table-bordered table-success">
+    <thead>
+      <tr>
+        <th scope="col">Score:</th>
+        <th scope="col"><%= details.scoreFull %></th>
+        <th scope="col">Recommendation:</th>
+        <th scope="col"><%= details.recommendFull %></th>
+      </tr>
+    </thead>
+  </table>      
+
+  <table class="table table-sm table-info table-bordered table-success table-striped">
     <thead>
       <tr>
         <th scope="col">#</th>

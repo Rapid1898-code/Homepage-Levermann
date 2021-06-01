@@ -57,20 +57,18 @@
                 <div class="card rounded shadow border-0">
                 <div class="card-body p-5 bg-white rounded">
                     <div class="table-responsive">
-                      <table id="example" style="width:100%" class="table table-striped table-bordered">
+                      <table id="example" style="width:100%" class="table table-sm table-striped table-bordered table-info">
                           <thead>
                               <tr>
                                   <th>Ticker</th>
                                   <th>Name</th>
                                   <th>Calc Date</th>
                                   <th>Index</th>
-                                  <th>Market Cap</th>
                                   <th>Cur.</th>
                                   <th>Sector</th>
                                   <th>Industry</th>
                                   <th>Cap</th>
                                   <th>Fin Stock?</th>
-                                  <th>Last Earning</th>
                                   <th>Score</th>
                                   <th>Recommend</th>
                               </tr>
@@ -84,13 +82,11 @@
                                       <td><%= el.stockName %></td>
                                       <td><%= el.calcDate %></td>
                                       <td><%= el.indexName %></td>
-                                      <td><%= el.marketCap %></td>
                                       <td><%= el.currency %></td>
                                       <td><%= el.sector %></td>
                                       <td><%= el.industry %></td>
                                       <td><%= el.cap %></td>
-                                      <td><%= el.financeStock %></td>                                     
-                                      <td><%= el.lastEarnings %></td>                                
+                                      <td><%= el.financeStock %></td>                                                                   
                                       <td><%= el.scoreFull %></td>
                                       <td><%= el.recommendFull %></td>
                                   </tr>
