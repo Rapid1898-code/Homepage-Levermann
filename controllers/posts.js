@@ -78,26 +78,40 @@ module.exports = {
 
   tickerRequest: async (req, res) => {
     try {
-      // write requested ticker in db for batch-work      
-      const conn = await connectDBSQL();                      
+      const errors = {};
+      const data = {};
 
-      const result = await conn.query(
-        `SELECT ticker FROM workingqueue WHERE ticker = ?`,
-        [req.body.tickerReq]
-      );     
-      
-      if (result[0].length === 0) {
-        const actDate = new Date().toISOString().split('T')[0]      
-        const tmpTicker = req.body.tickerReq    
-        const data = {ticker: tmpTicker, requestDate: actDate}
-        conn.query(
-          'INSERT INTO workingqueue SET ?',
-          data
-        );
-        console.log(`Inserted ticker ${tmpTicker} with actual date in working queue...`)
+      if (!req.body.tickerRequestField) {
+        errors.name = 'Name is required.';
+      }
+      if (Object.keys(errors).length) {
+        data.success = false;
+        data.errors = errors;
       } else {
-        console.log(`${req.body.tickerReq} allready in working queue...`)
-      }    
+        // write requested ticker in db for batch-work      
+        const conn = await connectDBSQL();                      
+        const result = await conn.query(
+          `SELECT ticker FROM workingqueue WHERE ticker = ?`,
+          [req.body.tickerRequestField]
+        );     
+        
+        if (result[0].length === 0) {
+          const actDate = new Date().toISOString().split('T')[0]      
+          const tmpTicker = req.body.tickerRequestField    
+          const data = {ticker: tmpTicker, requestDate: actDate}
+          conn.query(
+            'INSERT INTO workingqueue SET ?',
+            data
+          );
+          console.log(`Inserted ticker ${tmpTicker} with actual date in working queue...`)
+        } else {
+          console.log(`Stock ${req.body.tickerRequestField} allready in working queue...`)
+        }  
+
+        data.success = true;
+        data.message = 'Success!';
+      }      
+      res.status(200).json(data);
     } catch (err) {
       console.log("An Error...")
       console.log(err);
