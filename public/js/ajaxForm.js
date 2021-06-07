@@ -1,5 +1,6 @@
 $(document).ready(function () {
-  $("form").submit(function (event) {
+  $(".needs-validation").submit(function(event) {
+    event.preventDefault();
     $("#tickerRequestField").removeClass("is-invalid");
     $("#tickerRequestField").removeClass("is-valid");
     var formData = {
@@ -13,8 +14,6 @@ $(document).ready(function () {
       dataType: "json",
       encode: true,
     }).done(function (data) {
-      console.log(`DEBUG data ${data}`);
-
       if (!data.success) {
         if (data.errors.name) {
           $("#tickersRequestField").addClass("is-invalid");
