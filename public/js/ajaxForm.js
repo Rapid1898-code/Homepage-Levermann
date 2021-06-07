@@ -24,6 +24,7 @@ $(document).ready(function () {
       } else {
         $("#myForm")[0].reset();
         $("#tickersRequestField").addClass("is-valid");
+        $("#myForm").addClass("is-valid");
         $("#tickersRequestField").append(
           '<div class="help-block text-success">' + "Success!" + "</div>"
         );
