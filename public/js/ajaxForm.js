@@ -16,24 +16,32 @@ $(document).ready(function () {
     }).done(function (data) {
       if (!data.success) {
         if (data.errors.name) {
-          $("#tickersRequestField").addClass("is-invalid");
-          $("#tickersRequestField").append(
-            '<div class="help-block text-danger">' + data.errors.name + "</div>"
+          $("#tickerRequestField").addClass("is-invalid");
+          $("#tickerLabel").append(
+            '<div class="help-block alert-danger">' + "Pls enter ticker...!" + "</div>"
           );
         }
+        setTimeout(
+          function(){
+            $("#tickerRequestField").removeClass("is-invalid");
+            $(".help-block").remove();                           
+          }, 
+          3000
+        );        
       } else {
         $("#myForm")[0].reset();
-        $("#tickersRequestField").addClass("is-valid");
+        $("#tickerRequestField").addClass("is-valid");
         $("#myForm").addClass("is-valid");
-        $("#tickersRequestField").append(
-          '<div class="help-block text-success">' + "Success!" + "</div>"
+
+        $("#tickerLabel").append(
+          '<div class="help-block alert-success">' + "Ticker added to Queue...!" + "</div>"
         );
         setTimeout(
           function(){
-            $("#tickersRequestField").removeClass("is-valid");
+            $("#tickerRequestField").removeClass("is-valid");
             $(".help-block").remove();                           
           }, 
-          5000
+          3000
         );        
       } 
     });
