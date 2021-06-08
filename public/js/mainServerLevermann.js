@@ -5,6 +5,7 @@
 $(function() {
     $(document).ready(function() {
       $('#example').DataTable( {
+        "deferRender": true,
         autoWidth: false,
         columnDefs: [
           { width: '10px', targets: 0 },
