@@ -74,25 +74,6 @@
                                   <th>Recommend</th>
                               </tr>
                           </thead>
-                          <tbody>   
-                              <% rows.forEach( el => { %>
-                                  <tr class='TickerRow' data-id='<%= `${el.ticker} ${el.calcDate}` %>'>
-                                      <td>
-                                        <a href="/post/<%= el.ticker %>"><%= el.ticker %></a>
-                                      </td>
-                                      <td><%= el.stockName %></td>
-                                      <td><%= el.calcDate %></td>
-                                      <td><%= el.indexName %></td>
-                                      <td><%= el.currency %></td>
-                                      <td><%= el.sector %></td>
-                                      <td><%= el.industry %></td>
-                                      <td><%= el.cap %></td>
-                                      <td><%= el.financeStock %></td>                                                                   
-                                      <td><%= el.scoreFull %></td>
-                                      <td><%= el.recommendFull %></td>
-                                  </tr>
-                              <% }) %>                                                                                
-                          </tbody>
                       </table>
                     </div>
                 </div>

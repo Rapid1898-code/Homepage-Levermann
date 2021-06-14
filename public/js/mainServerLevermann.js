@@ -5,8 +5,28 @@
 $(function() {
     $(document).ready(function() {
       $('#example').DataTable( {
+        "ajax": "scores.txt",        
         "deferRender": true,
         autoWidth: false,
+        "columns": [
+          // { "data": "name" },
+          { "data": "ticker",
+            "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+              // $(nTd).html("<a href='" + "https://www.orf.at" + "'>" + oData.ticker + "</a>");
+              $(nTd).html("<a href='" + "/post/" + oData.ticker + "'>" + oData.ticker + "</a>");
+            }
+          },
+          { "data": "name" },
+          { "data": "calcDate" },
+          { "data": "index" },
+          { "data": "currency" },
+          { "data": "sector" },
+          { "data": "industry" },
+          { "data": "cap" },
+          { "data": "finStock" },
+          { "data": "score" },
+          { "data": "recommend" }
+        ],
         columnDefs: [
           { width: '10px', targets: 0 },
           { width: '100px', targets: 1 },
