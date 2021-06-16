@@ -1,3 +1,9 @@
+function resetForm(id) {
+  $('#' + id).val(function() {
+      return this.defaultValue;
+  });
+}
+
 $(document).ready(function () {
   $(".needs-validation").submit(function(event) {
     event.preventDefault();
@@ -30,7 +36,8 @@ $(document).ready(function () {
           3000
         );        
       } else {
-        $("#myForm")[0].reset();
+        // $("#myForm")[0].reset();
+        resetForm("tickerRequestField")
         $("#tickerRequestField").addClass("is-valid");
         $("#myForm").addClass("is-valid");
 

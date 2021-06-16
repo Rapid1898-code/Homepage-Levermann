@@ -105,6 +105,8 @@ module.exports = {
           );
           console.log(`Inserted ticker ${tmpTicker} with actual date in working queue...`)
           console.log(`MailCheckbox: ${req.body.tickerReqMail}`)
+          // console.log(`User: ${User.email}`)
+          
         } else {
           console.log(`Stock ${req.body.tickerRequestField} allready in working queue...`)
         }  
