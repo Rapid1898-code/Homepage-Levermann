@@ -3,8 +3,9 @@ $(document).ready(function () {
     event.preventDefault();
     $("#tickerRequestField").removeClass("is-invalid");
     $("#tickerRequestField").removeClass("is-valid");
-    var formData = {
+    let formData = {
       tickerRequestField: $("#tickerRequestField").val(),
+      tickerReqMail: $("#tickerReqMail").is(':checked')
     };
 
     $.ajax({
