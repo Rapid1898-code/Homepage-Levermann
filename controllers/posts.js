@@ -89,14 +89,16 @@ module.exports = {
           const actDate = new Date().toISOString().split('T')[0]      
           const tmpTicker = req.body.tickerRequestField    
           const data = {ticker: tmpTicker, requestDate: actDate}
+
+          let tmpUser = req.user          
+          console.log(`DEBUG User: ${tmpUser}`)
+
           conn.query(
             'INSERT INTO workingqueue SET ?',
             data
           );
           console.log(`Inserted ticker ${tmpTicker} with actual date in working queue...`)
           console.log(`MailCheckbox: ${req.body.tickerReqMail}`)
-          // console.log(`User: ${User.email}`)
-          
         } else {
           console.log(`Stock ${req.body.tickerRequestField} allready in working queue...`)
         }  
