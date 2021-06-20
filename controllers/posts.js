@@ -82,27 +82,27 @@ module.exports = {
           `SELECT ticker FROM workingqueue WHERE ticker = ?`,
           [req.body.tickerRequestField]
         );     
-
-        console.log(`USER: ${savedVars.user}`)
-
         if (result[0].length === 0) {
           const actDate = new Date().toISOString().split('T')[0]      
           const tmpTicker = req.body.tickerRequestField    
-          const data = {ticker: tmpTicker, requestDate: actDate}
+          // console.log(`DEBUG User: ${req.user.userName}`)
+          // console.log(`DEBUG User: ${req.user.email}`)
+          // console.log(`MailCheckbox: ${req.body.tickerReqMail}`)
 
-          let tmpUser = req.user          
-          console.log(`DEBUG User: ${tmpUser}`)
-
+          const data = {ticker: tmpTicker.toUpperCase(),
+                        requestDate: actDate,
+                        email: req.user.email,
+                        userName: req.user.userName,
+                        mailSend: req.body.tickerReqMail === "true" ? 1 : 0}
           conn.query(
             'INSERT INTO workingqueue SET ?',
             data
           );
           console.log(`Inserted ticker ${tmpTicker} with actual date in working queue...`)
-          console.log(`MailCheckbox: ${req.body.tickerReqMail}`)
+          
         } else {
           console.log(`Stock ${req.body.tickerRequestField} allready in working queue...`)
         }  
-
         data.success = true;
         data.message = 'Success!';
       }      
