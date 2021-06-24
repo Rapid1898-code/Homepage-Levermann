@@ -6,6 +6,7 @@ $(function() {
     $(document).ready(function() {
       $('#example').DataTable( {
         "ajax": "scores.txt",        
+        // "ajax": "https://www.rapidtech1898.com/docs/scores.txt",        
         "deferRender": true,
         autoWidth: false,
         "columns": [
