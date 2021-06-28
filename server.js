@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors')
 const app = express();
 const mongoose = require("mongoose");
 const passport = require("passport");
@@ -25,6 +26,14 @@ app.set("view engine", "ejs");
 
 //Static Folder
 app.use(express.static("public"));
+
+//Using Cors middleware
+app.use(cors());
+// const corsOptions = {
+//   origin: 'https://www.rapidtech1898.com/docs/scores.txt',
+//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// }
+// app.use(cors(corsOptions));
 
 //Body Parsing
 app.use(express.urlencoded({ extended: true }));
