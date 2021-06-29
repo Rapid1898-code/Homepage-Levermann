@@ -28,6 +28,7 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 //Using Cors middleware
+
 app.use(cors());
 // const corsOptions = {
 //   origin: 'https://www.rapidtech1898.com/docs/scores.txt',
