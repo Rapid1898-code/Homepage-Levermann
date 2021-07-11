@@ -1,6 +1,7 @@
 const cloudinary = require("../middleware/cloudinary");
 const Post = require("../models/Post");
 const connectDBSQL = require("../config/databaseSQL");
+const fetch = require('node-fetch');
 require('dotenv').config({path: './config/.env'})
 let savedVars = require("./auth")
 
@@ -13,6 +14,23 @@ module.exports = {
         res.render('scores.ejs', { rows: result[0], user: req.user })       
     } catch (err) {
         console.log(err);
+    }
+  },
+
+  getScores: async (req, res) => {
+    try {
+    //   let obj = await JSON.parse(fs.readFileSync('https://www.rapidtech1898.com/aaadownload/arrays.txt', 'utf8'));
+    //   console.log(obj)
+
+      let erg = await fetch (
+        "https://www.rapidtech1898.com/aaadownload/arrays.txt", 
+        { headers: { origin: 'https://www.rapidtech1898.com' } }
+      )
+      let json = await erg.json()
+      console.log(json)
+
+    } catch (err) {
+      console.log(err);
     }
   },
 
