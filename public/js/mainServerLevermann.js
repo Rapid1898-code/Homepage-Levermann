@@ -1,19 +1,12 @@
-// $(document).ready(function() {
-//   $('#example').DataTable();
-// } );
-
 $(function() {
     $(document).ready(function() {
       $('#example').DataTable( {
         "ajax": "scores.txt",        
-        // "ajax": "https://www.rapidtech1898.com/docs/scores.txt",        
         "deferRender": true,
         autoWidth: false,
         "columns": [
-          // { "data": "name" },
           { "data": "ticker",
             "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-              // $(nTd).html("<a href='" + "https://www.orf.at" + "'>" + oData.ticker + "</a>");
               $(nTd).html("<a href='" + "/post/" + oData.ticker + "'>" + oData.ticker + "</a>");
             }
           },

@@ -11,7 +11,7 @@ router.get("/profile", ensureAuth, postsController.getProfile);
 router.get("/feed", ensureAuth, postsController.getFeed);
 
 // router.get("/readScores", ensureAuth, postsController.getScores);
-router.get("/readScores", postsController.getScores);
+router.get("/readScores", ensureAuth, postsController.getScores);
 
 router.get("/login", authController.getLogin);
 router.post("/login", authController.postLogin);

@@ -2,6 +2,7 @@ const cloudinary = require("../middleware/cloudinary");
 const Post = require("../models/Post");
 const connectDBSQL = require("../config/databaseSQL");
 const fetch = require('node-fetch');
+const fs = require("fs")
 require('dotenv').config({path: './config/.env'})
 let savedVars = require("./auth")
 
@@ -11,6 +12,19 @@ module.exports = {
         const posts = await Post.find({ user: req.user.id });
         const conn = await connectDBSQL();
         const result = await conn.execute
+
+        
+        let erg = await fetch (
+          "https://www.rapidtech1898.com/docs/scores.txt", 
+          { headers: { origin: 'https://www.rapidtech1898.com' } }
+        )
+
+        // const fileStream = await fs.createWriteStream("./public");
+        // await erg.body.pipe(fileStream);
+
+        let json = await erg.json()
+        console.log(json)        
+
         res.render('scores.ejs', { rows: result[0], user: req.user })       
     } catch (err) {
         console.log(err);
@@ -19,11 +33,8 @@ module.exports = {
 
   getScores: async (req, res) => {
     try {
-    //   let obj = await JSON.parse(fs.readFileSync('https://www.rapidtech1898.com/aaadownload/arrays.txt', 'utf8'));
-    //   console.log(obj)
-
       let erg = await fetch (
-        "https://www.rapidtech1898.com/aaadownload/arrays.txt", 
+        "https://www.rapidtech1898.com/docs/scores.txt", 
         { headers: { origin: 'https://www.rapidtech1898.com' } }
       )
       let json = await erg.json()
