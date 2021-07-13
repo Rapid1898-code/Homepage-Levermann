@@ -18,14 +18,15 @@ module.exports = {
           { headers: { origin: 'https://www.rapidtech1898.com' } }
         )
 
-        // const fileStream = await fs.createWriteStream("./public");
-        // await erg.body.pipe(fileStream);
+        erg = await erg.json()              
+        // console.log(jsonData)                
 
-        // await fs.copyFile('https://www.rapidtech1898.com/docs/scores.txt', 'destination.txt')
-
-        let json = await erg.json()
-        console.log(json)        
-
+        await fs.writeFile("./public/scores.txt", JSON.stringify(erg), function(err) {
+          if (err) {
+              console.log(err);
+          }
+        });
+        
         res.render('scores.ejs', { rows: result[0], user: req.user })       
     } catch (err) {
         console.log(err);
