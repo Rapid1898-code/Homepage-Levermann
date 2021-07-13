@@ -12,8 +12,7 @@ module.exports = {
         const posts = await Post.find({ user: req.user.id });
         const conn = await connectDBSQL();
         const result = await conn.execute
-
-        
+       
         let erg = await fetch (
           "https://www.rapidtech1898.com/docs/scores.txt", 
           { headers: { origin: 'https://www.rapidtech1898.com' } }
@@ -21,6 +20,8 @@ module.exports = {
 
         // const fileStream = await fs.createWriteStream("./public");
         // await erg.body.pipe(fileStream);
+
+        // await fs.copyFile('https://www.rapidtech1898.com/docs/scores.txt', 'destination.txt')
 
         let json = await erg.json()
         console.log(json)        
