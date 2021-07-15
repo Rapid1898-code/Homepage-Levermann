@@ -9,26 +9,40 @@ require('dotenv').config({path: './config/.env'})
 module.exports = {
   // Initialize the main site - all levermann scores for all stocks
   getProfile: async (req, res) => {
-    try {
-        const posts = await Post.find({ user: req.user.id });
-        const conn = await connectDBSQL();
-        const result = await conn.execute
-       
-        let erg = await fetch (
-          "https://www.rapidtech1898.com/docs/scores.txt", 
-          { headers: { origin: 'https://www.rapidtech1898.com' } }
-        )
+    try {       
+        const conn = await connectDBSQL(); 
+        const result = await conn.query(
+          `SELECT * FROM ${process.env.SCORE_TABLE}`
+        );   
+        // console.log(result[0][0])
+        let ergObj = {}
+        ergObj["data"] = []
+        for (const [idx, elem] of result[0].entries()) {
+          ergObj["data"].push(
+            {
+              "ticker": elem["ticker"],
+              "name": elem["stockName"],
+              "calcDate": elem["calcDate"].toISOString().split('T')[0],
+              "index": elem["indexName"],
+              "currency": elem["currency"],
+              "sector": elem["sector"],
+              "industry": elem["industry"],
+              "cap": elem["cap"],
+              "finStock": elem["financeStock"],
+              "score": elem["scoreFull"],
+              "recommend": elem["recommendFull"]
+            }
+          )
+        }
+        // console.log(ergObj)
 
-        erg = await erg.json()              
-        // console.log(jsonData)                
-
-        await fs.writeFile("./public/scores.txt", JSON.stringify(erg), function(err) {
+        await fs.writeFile("./public/scores.txt", JSON.stringify(ergObj), function(err) {
           if (err) {
               console.log(err);
           }
         });
-        
-        res.render('scores.ejs', { rows: result[0], user: req.user })       
+
+        res.render('scores.ejs', {user: req.user })       
     } catch (err) {
         console.log(err);
     }
