@@ -4,9 +4,10 @@ const connectDBSQL = require("../config/databaseSQL");
 const fetch = require('node-fetch');
 const fs = require("fs")
 require('dotenv').config({path: './config/.env'})
-let savedVars = require("./auth")
+// let savedVars = require("./auth")
 
 module.exports = {
+  // Initialize the main site - all levermann scores for all stocks
   getProfile: async (req, res) => {
     try {
         const posts = await Post.find({ user: req.user.id });
@@ -33,6 +34,7 @@ module.exports = {
     }
   },
 
+  // Read / fetch data from rapidtech-webpage - functionality currently not used
   getScores: async (req, res) => {
     try {
       let erg = await fetch (
@@ -47,6 +49,7 @@ module.exports = {
     }
   },
 
+  // NOT used now
   getFeed: async (req, res) => {
     try {
       const posts = await Post.find().sort({ createdAt: "desc" }).lean();
@@ -56,11 +59,11 @@ module.exports = {
     }
   },
 
+  // read levermann score detail data for one stock
   detailScore: async (req, res) => {
     try {
       // console.log(req.params.id)
       const conn = await connectDBSQL(); 
-
       const result = await conn.query(
         `SELECT * FROM ${process.env.SCORE_TABLE} WHERE ticker = ?
           AND calcDate = (SELECT max(calcDate)
@@ -75,6 +78,7 @@ module.exports = {
     }
   },
 
+  // NOT used now
   createPost: async (req, res) => {
     try {
       // Upload image to cloudinary
@@ -95,6 +99,7 @@ module.exports = {
     }
   },
 
+  // request ticker for update - ticker is stored in db-workingqueue
   tickerRequest: async (req, res) => {
     try {
       const errors = {};
@@ -144,6 +149,7 @@ module.exports = {
     }
   },
 
+  // NOT used now
   likePost: async (req, res) => {
     try {
       await Post.findOneAndUpdate(
@@ -159,6 +165,7 @@ module.exports = {
     }
   },
 
+  // NOT used now
   deletePost: async (req, res) => {
     try {
       // Find post by id
